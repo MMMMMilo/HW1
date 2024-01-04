@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW1</title>
+    <script src="https://kit.fontawesome.com/9c638736ac.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header>  
+            <nav>
+                <ul>
+                    <li class="logo">
+                        <a href="index.html"><img src="./image/header_logo.svg" alt="logo"></a>
+                    </li>
+                    <li style="display: flex;">
+                        <a 
+                        v-for="nav in navList" 
+                        :href="nav.link" 
+                        :class="nav.class"
+                        >
+                            <div>{{nav.text}}</div>
+                        </a>
+                    </li>
+                    <li class="cart">
+                        <a href="cart2.html">
+                            <img src="./image/header_cart.svg" alt="cart">
+                            <div class="count">2</div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="shopmain" id="top">
+            <div class="banner">
+                <h2 class="title">SHOP</h2>
+                <img src="./image/banner_shop.jpg" alt="banner"> 
+            </div>
+            <div class="info">
+                <div class="deco">
+                    <div class="sticker-earth"><img src="./image/sticker_earth.svg" alt="sticker-earth"></div>
+                    <div class="sticker-eye2"><img src="./image/sticker_eye2.svg" alt="sticker-eye2"></div>
+                    <div class="sticker-circlebomb"><img src="./image/sticker_circlebomb.svg" alt="sticker-circlebomb"></div>
+                </div>
+                <div class="shopcontent">
+                    <div class="shopmenu">
+                        <div class="shoptype" @click ="change = 1">
+                            <span :style="{color: change == 1 ? '#fa0':'rgb(58, 58, 58)'}">ALL</span><span>({{productAll.length}})</span>
+                        </div>
+                        <div class="shoptype" @click ="change = 2">
+                            <span :style="{color: change == 2 ? '#fa0':'rgb(58, 58, 58)'}">TOYS</span><span>({{productToys.length}})</span>
+                        </div> 
+                        <div class="shoptype" @click ="change = 3">
+                            <span :style="{color: change == 3 ? '#fa0':'rgb(58, 58, 58)'}">LIVING</span><span>({{productLiving.length}})</span>
+                        </div>
+                        <div class="shoptype" @click ="change = 4">
+                            <span :style="{color: change == 4 ? '#fa0':'rgb(58, 58, 58)'}">VINTAGE</span><span>({{productVintage.length}})</span>
+                        </div>
+                        <div class="shoptype" @click ="change = 5">
+                            <span :style="{color: change == 5 ? '#fa0':'rgb(58, 58, 58)'}">PHOTOS</span><span>({{productAdditional.length}})</span>
+                        </div>
+                    </div>
+                    <!-- 手機板menu要怎麼同時綁定click事件到同一個商品上呢? -->
+                    <div class="phoneshop">
+                        <select >
+                            <option @click ="changeM = 1">ALL&nbsp;(14)</option>
+                            <option @click ="changeM = 2">TOYS&nbsp;(5)</option>
+                            <option @click ="changeM = 3">LIVING&nbsp;(4)</option>
+                            <option @click ="changeM = 4">VINTAGE&nbsp;(3)</option>
+                            <option @click ="changeM = 5">PHOTOS&nbsp;(2)</option>
+                        </select>
+                    </div>
+                    <!-- 手機板menu要怎麼同時綁定click事件到同一個商品上呢? -->
+                    <div class="product">
+                        <div class="itemgroup" v-show="change == 1,">
+                            <a v-for="product in productAll"
+                            :href="product.link" 
+                            class="item">
+                                <div class="top">
+                                    <span class="name">{{product.name}}</span>
+                                    <div class="arrow2"><img src="./image/product_arrow2.svg" alt="arrow"></div>
+                                    <div class="arrow"><img src="./image/product_arrow.svg" alt="arrow"></div>
+                                    <span class="detail">{{product.description}}</span>
+                                </div>
+                                <div class="bottom">
+                                    <span class="price">{{product.price}}</span>
+                                    <span :class="product.classStamp">{{product.status}}</span>
+                                </div>
+                                <div class="overlay"></div>
+                                <div class="primg">
+                                    <img :src="product.image" :alt="product.alt">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="itemgroup" v-show="change == 2">
+                            <a v-for="product in productToys"
+                            :href="product.link" 
+                            class="item">
+                                <div class="top">
+                                    <span class="name">{{product.name}}</span>
+                                    <div class="arrow2"><img src="./image/product_arrow2.svg" alt="arrow"></div>
+                                    <div class="arrow"><img src="./image/product_arrow.svg" alt="arrow"></div>
+                                    <span class="detail">{{product.description}}</span>
+                                </div>
+                                <div class="bottom">
+                                    <span class="price">{{product.price}}</span>
+                                    <span :class="product.classStamp">{{product.status}}</span>
+                                </div>
+                                <div class="overlay"></div>
+                                <div class="primg">
+                                    <img :src="product.image" :alt="product.alt">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="itemgroup" v-show="change == 3">
+                            <a v-for="product in productLiving"
+                            :href="product.link" 
+                            class="item">
+                                <div class="top">
+                                    <span class="name">{{product.name}}</span>
+                                    <div class="arrow2"><img src="./image/product_arrow2.svg" alt="arrow"></div>
+                                    <div class="arrow"><img src="./image/product_arrow.svg" alt="arrow"></div>
+                                    <span class="detail">{{product.description}}</span>
+                                </div>
+                                <div class="bottom">
+                                    <span class="price">{{product.price}}</span>
+                                    <span :class="product.classStamp">{{product.status}}</span>
+                                </div>
+                                <div class="overlay"></div>
+                                <div class="primg">
+                                    <img :src="product.image" :alt="product.alt">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="itemgroup" v-show="change == 4">
+                            <a v-for="product in productVintage"
+                            :href="product.link" 
+                            class="item">
+                                <div class="top">
+                                    <span class="name">{{product.name}}</span>
+                                    <div class="arrow2"><img src="./image/product_arrow2.svg" alt="arrow"></div>
+                                    <div class="arrow"><img src="./image/product_arrow.svg" alt="arrow"></div>
+                                    <span class="detail">{{product.description}}</span>
+                                </div>
+                                <div class="bottom">
+                                    <span class="price">{{product.price}}</span>
+                                    <span :class="product.classStamp">{{product.status}}</span>
+                                </div>
+                                <div class="overlay"></div>
+                                <div class="primg">
+                                    <img :src="product.image" :alt="product.alt">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="itemgroup" v-show="change == 5">
+                            <a v-for="product in productAdditional"
+                            :href="product.link" 
+                            class="item">
+                                <div class="top">
+                                    <span class="name">{{product.name}}</span>
+                                    <div class="arrow2"><img src="./image/product_arrow2.svg" alt="arrow"></div>
+                                    <div class="arrow"><img src="./image/product_arrow.svg" alt="arrow"></div>
+                                    <span class="detail">{{product.description}}</span>
+                                </div>
+                                <div class="bottom">
+                                    <span class="price">{{product.price}}</span>
+                                    <span :class="product.classStamp">{{product.status}}</span>
+                                </div>
+                                <div class="overlay"></div>
+                                <div class="primg">
+                                    <img :src="product.image" :alt="product.alt">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="page" v-show="change == 1">
+                            <a href="#">|&lt;</a>
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">&gt;|</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="deco">
+                <div class="sticker-bc"><img src="./image/sticker_bc.svg" alt="sticker-bc"></div>
+                <div class="sticker-1"><img src="./image/sticker_1.svg" alt="sticker-bc"></div>
+                <div class="sticker-hagd"><img src="./image/sticker_hagd.svg" alt="sticker-sun"></div>
+            </div>
+            <div class="front">
+                <div class="logo">
+                    <a href="./index.html"><img src="./image/footer_logo.svg" alt="logo"></a>
+                </div>
+                <div class="top">
+                    <a href="#top"><img src="./image/footer_arrow.svg" alt="top">
+                        <span>TOP</span></a>
+                </div>
+            </div>
+            <div class="info">
+                <div v-for="info in footerInfo" 
+                :href="info.href" 
+                :class="info.class">
+                    <p>{{info.textT}}</p>
+                    <p>{{info.textB}}</p>
+                </div> 
+            </div>
+            <div class="bottom">
+                <span>本網站為緯育TibaMe前端工程師班第88期學員專題作品，本平台僅供學習、展示之用。</span>
+                <span>@2023 TOKIRA</span>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    navList:[
+                        {
+                            text: "ABOUT",
+                            link: "about.html",
+                            class: "headerbtn",
+                            content: "ABOUT"
+                        },
+                        {
+                            text: "NEWS",
+                            link: "news.html",
+                            class: "headerbtn",
+                            content: "NEWS"
+                        },
+                        {
+                            text: "SHOP",
+                            link: "shop.html",
+                            class: "headerbtn",
+                            content:"SHOP" 
+                        },
+                        {
+                            text: "CONTACT",
+                            link: "contact.html",
+                            class: "headerbtn",
+                            content:"CONTACT" 
+                        },
+                    ],
+                    productAll:[
+                        {
+                            name: "掌上電子遊戲機",
+                            description: "80年代經典電子遊戲機，帶您重溫當年的遊戲樂趣與童年回憶。",
+                            price: "$ 980",
+                            classStamp:"stamp1",
+                            status: "NEW",
+                            image: "./image/product_gameboy.jpg",
+                            alt: "gameboy",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "任天堂卡帶",
+                            description: "創新的遊戲媒介。成就了遊戲史上的經典，承載了無數令人難忘的冒險與故事。",
+                            price: "$ 780",
+                            classStamp:"stamp1",
+                            status: "NEW",
+                            image: "./image/product_gamedisk.jpg",
+                            alt: "gamedisk",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "音樂時光卡式錄音帶",
+                            description: "充滿復古魅力的卡式錄音帶，帶您回到音樂在磁帶上流傳的年代，重溫那些珍貴的音樂時刻。",
+                            price: "$ 360",
+                            image: "./image/product_audiotape.jpg",
+                            alt: "audiotape",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "View-Master 幻燈片機",
+                            description: "即刻探索多樣景觀，沉浸於生動故事。這經典裝置將美景帶入手中，成為您探險的視覺窗。",
+                            price: "$ 600",
+                            image: "./image/product_viewmaster.jpg",
+                            alt: "viewmaster",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "太空探險樂高組合",
+                            description: "精彩的外星人樂高組合，將您帶入外太空探險的刺激世界，充滿樂趣和挑戰。",
+                            price: "$ 590",
+                            classStamp:"stamp2",
+                            status: "SOLD OUT",
+                            image: "./image/product_lego.jpg",
+                            alt: "lego",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "舊式攝影底片",
+                            description: "復古的底片帶您進入攝影的神秘世界，探索以前的攝影技術和獨特的影像魅力。",
+                            price: "$ 230",
+                            classStamp:"stamp1",
+                            status: "HOT",
+                            image: "./image/product_film.jpg",
+                            alt: "film",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "經典角色模型車",
+                            description: "經典角色化身賽車手融合了熱情與速度，為您帶來激動人心的賽車樂趣。收藏或比賽，都能激發無限童心。",
+                            price: "$ 670",
+                            image: "./image/product_modelcar.jpg",
+                            alt: "modelcar",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "電影海報收藏品",
+                            description: "這些復古風格的電影海報彷彿是時光隧道，帶您重溫經典電影的美妙。",
+                            price: "$ 540",
+                            image: "./image/product_poster.jpg",
+                            alt: "poster",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "SEGA遊戲卡帶",
+                            description: "充滿懷舊風情的遊戲傳奇。蘊含了SEGA遊戲史上的經典，帶來無盡的遊戲樂趣與挑戰。經典遊戲，永不褪色。",
+                            price: "$ 540",
+                            image: "./image/product_sega.jpg",
+                            alt: "sega",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "奇脆圈玩具TAZO",
+                            description: "獨特設計，藏匿奇幻力量。收集、交換、探索其中的秘密，為你的TAZO收藏品帶來新的奇妙體驗。",
+                            price: "$ 160",
+                            image: "./image/product_tazo.jpg",
+                            alt: "tazo",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "雲端飛行船裝飾",
+                            description: "這些精緻裝飾充滿夢幻氛圍，帶您飛向冒險之旅。為生活增添一絲奇幻氛圍與探險精神。",
+                            price: "$ 720",
+                            image: "./image/product_space.jpg",
+                            alt: "space",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "MF DOOM黑膠唱片",
+                            description: "收錄了MF DOOM深邃的音樂世界，展現其獨特風格與才華。品味音樂巨匠的藝術，享受深沉旋律的震撼。",
+                            price: "$ 830",
+                            classStamp:"stamp2",
+                            status: "SOLD OUT",
+                            image: "./image/product_mfdoom.jpg",
+                            alt: "mfdoom",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "空手道小子吊卡",
+                            description: "捕捉了空手道小子的英勇形象，展現著其技藝與精神。收藏或懸掛，都能體現熱血少年的勇氣與冒險精神。",
+                            price: "$ 610",
+                            classStamp:"stamp1",
+                            status: "HOT",
+                            image: "./image/product_kid.jpg",
+                            alt: "gameboy",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "愛因斯坦零錢筒",
+                            description: "智慧與儲蓄的象徵。不僅能儲蓄，更是一件啓發人心的藝術品，為您的存錢計畫增添趣味。",
+                            price: "$ 540",
+                            image: "./image/product_einstein.jpg",
+                            alt: "einstein",
+                            link: "shoppage.html",
+                        },
+                    ],
+                    productToys:[
+                        {
+                            name: "掌上電子遊戲機",
+                            description: "80年代經典電子遊戲機，帶您重溫當年的遊戲樂趣與童年回憶。",
+                            price: "$ 980",
+                            classStamp:"stamp1",
+                            status: "NEW",
+                            image: "./image/product_gameboy.jpg",
+                            alt: "gameboy",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "太空探險樂高組合",
+                            description: "精彩的外星人樂高組合，將您帶入外太空探險的刺激世界，充滿樂趣和挑戰。",
+                            price: "$ 590",
+                            classStamp:"stamp2",
+                            status: "SOLD OUT",
+                            image: "./image/product_lego.jpg",
+                            alt: "lego",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "經典角色模型車",
+                            description: "經典角色化身賽車手融合了熱情與速度，為您帶來激動人心的賽車樂趣。收藏或比賽，都能激發無限童心。",
+                            price: "$ 670",
+                            image: "./image/product_modelcar.jpg",
+                            alt: "modelcar",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "奇脆圈玩具TAZO",
+                            description: "獨特設計，藏匿奇幻力量。收集、交換、探索其中的秘密，為你的TAZO收藏品帶來新的奇妙體驗。",
+                            price: "$ 160",
+                            image: "./image/product_tazo.jpg",
+                            alt: "tazo",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "空手道小子吊卡",
+                            description: "捕捉了空手道小子的英勇形象，展現著其技藝與精神。收藏或懸掛，都能體現熱血少年的勇氣與冒險精神。",
+                            price: "$ 610",
+                            classStamp:"stamp1",
+                            status: "HOT",
+                            image: "./image/product_kid.jpg",
+                            alt: "kid",
+                            link: "shoppage.html",
+                        },
+                    ],
+                    productLiving:[
+                        {
+                            name: "電影海報收藏品",
+                            description: "這些復古風格的電影海報彷彿是時光隧道，帶您重溫經典電影的美妙。",
+                            price: "$ 540",
+                            image: "./image/product_poster.jpg",
+                            alt: "poster",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "雲端飛行船裝飾",
+                            description: "這些精緻裝飾充滿夢幻氛圍，帶您飛向冒險之旅。為生活增添一絲奇幻氛圍與探險精神。",
+                            price: "$ 720",
+                            image: "./image/product_space.jpg",
+                            alt: "space",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "MF DOOM黑膠唱片",
+                            description: "收錄了MF DOOM深邃的音樂世界，展現其獨特風格與才華。品味音樂巨匠的藝術，享受深沉旋律的震撼。",
+                            price: "$ 830",
+                            classStamp:"stamp2",
+                            status: "SOLD OUT",
+                            image: "./image/product_mfdoom.jpg",
+                            alt: "mfdoom",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "愛因斯坦零錢筒",
+                            description: "智慧與儲蓄的象徵。不僅能儲蓄，更是一件啓發人心的藝術品，為您的存錢計畫增添趣味。",
+                            price: "$ 540",
+                            image: "./image/product_einstein.jpg",
+                            alt: "einstein",
+                            link: "shoppage.html",
+                        },
+                    ],
+                    productVintage:[
+                        {
+                            name: "任天堂卡帶",
+                            description: "創新的遊戲媒介。成就了遊戲史上的經典，承載了無數令人難忘的冒險與故事。",
+                            price: "$ 780",
+                            classStamp:"stamp1",
+                            status: "NEW",
+                            image: "./image/product_gamedisk.jpg",
+                            alt: "gamedisk",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "音樂時光卡式錄音帶",
+                            description: "充滿復古魅力的卡式錄音帶，帶您回到音樂在磁帶上流傳的年代，重溫那些珍貴的音樂時刻。",
+                            price: "$ 360",
+                            image: "./image/product_audiotape.jpg",
+                            alt: "audiotape",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "SEGA遊戲卡帶",
+                            description: "充滿懷舊風情的遊戲傳奇。蘊含了SEGA遊戲史上的經典，帶來無盡的遊戲樂趣與挑戰。經典遊戲，永不褪色。",
+                            price: "$ 540",
+                            image: "./image/product_sega.jpg",
+                            alt: "sega",
+                            link: "shoppage.html",
+                        },
+                    ],
+                    productAdditional:[
+                        {
+                            name: "View-Master 幻燈片機",
+                            description: "即刻探索多樣景觀，沉浸於生動故事。這經典裝置將美景帶入手中，成為您探險的視覺窗。",
+                            price: "$ 600",
+                            image: "./image/product_viewmaster.jpg",
+                            alt: "viewmaster",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "舊式攝影底片",
+                            description: "復古的底片帶您進入攝影的神秘世界，探索以前的攝影技術和獨特的影像魅力。",
+                            price: "$ 230",
+                            classStamp:"stamp1",
+                            status: "HOT",
+                            image: "./image/product_film.jpg",
+                            alt: "film",
+                            link: "shoppage.html",
+                        },
+                    ],
+                    footerInfo:[
+                        {
+                            href: "https://maps.app.goo.gl/apyan9qoHcT4gzZeA",
+                            class: "item",
+                            textT: "320" ,
+                            textB: "桃園市中壢區復興路46號9樓" 
+                        },
+                        {
+                            href: "tel:+886-3-4251234",
+                            class: "item",
+                            textT: "聯絡電話" ,
+                            textB: "03-425-1234"
+                        },
+                        {
+                            class: "item",
+                            textT: "營業時間" ,
+                            textB: "平日14:00-19:30 假日13:00-19:30" 
+                        },
+                        {
+                            class: "media",
+                            textT: "INSTAGRAM" ,
+                            textB: "FACEBOOK"
+                        }
+                    ],
+                    change: 1,
+                    changeM:1,
+                }
+            },
+        }).mount('#app')
+    </script>
+</body>
+</html>
