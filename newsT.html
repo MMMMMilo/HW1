@@ -60,28 +60,21 @@
                 </div>
 
                 <div class="newscontent" id="newscontent">
-                    <div class="newsmenu">
+                    <div class="shopmenu">
                         <div 
-                        v-for="menu in newsMenu"
-                        class="shoptype" 
-                        @click ="filter(menu.index)"
+                            v-for="menu in newsMenu" 
+                            class="shoptype" 
+                            @click ="filter(menu.index)"
                         >
-                            <span :style="{color: change == menu.index ? '#fa0':'rgb(58, 58, 58)'}">{{menu.name}}</span>
+                            <span :style="{color: change == menu.index ? '#fa0':'rgb(58, 58, 58)'}">
+                                {{menu.name}}
+                            </span>
                             <span>
                                 ({{parseLength(menu.name)}})
                             </span>
                         </div>
                     </div>
-                    <div class="phonenews">
-                        <select @change="filterPhoneShop">
-                            <option 
-                                v-for="menu in newsMenu"
-                                :value="menu.index"
-                            >
-                                {{menu.name}}&nbsp;({{parseLength(menu.name)}})
-                            </option>
-                        </select>
-                    </div>
+                    
                     <div class="newsproduct">
                         <div class="itemgroup  all-info" v-show="change == 1">
                             <a href="newspage.html" class="item" v-for="i in ALL" >
@@ -105,7 +98,7 @@
                             </a>
                         </div>
 
-                        <div class="itemgroup  product-info"  v-show="change == 2">
+                        <div class="itemgroup  product-info" style="display:none" v-show="change == 2">
                             <a href="newspage.html" class="item" v-for="i in PRODUCT">
 
                                 <div class="text">
@@ -127,7 +120,7 @@
                             </a>
                         </div>
 
-                        <div class="itemgroup  activity-info" v-show="change == 3">
+                        <div class="itemgroup  activity-info" style="display:none" v-show="change == 3">
                             <a href="newspage.html" class="item" v-for="i in ACTIVITY">
 
                                 <div class="text">
@@ -149,7 +142,7 @@
                             </a>
                         </div>
                         
-                        <div class="itemgroup  store-info"  v-show="change == 4">
+                        <div class="itemgroup  store-info" style="display:none" v-show="change == 4">
                             <a href="newspage.html" class="item" v-for="i in STORE">
 
                                 <div class="text">
@@ -177,6 +170,7 @@
                             <a href="#">>|</a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -216,48 +210,49 @@
     Vue.createApp({
         data(){
             return {
-                navList:[
-                        {
-                            text: "ABOUT",
-                            link: "#",
-                            class: "headerbtn",
-                            content: "ABOUT"
-                        },
-                        {
-                            text: "NEWS",
-                            link: "news.html",
-                            class: "headerbtn",
-                            content: "NEWS"
-                        },
-                        {
-                            text: "SHOP",
-                            link: "index.html",
-                            class: "headerbtn",
-                            content:"SHOP" 
-                        },
-                        {
-                            text: "CONTACT",
-                            link: "#",
-                            class: "headerbtn",
-                            content:"CONTACT" 
-                        },
+                newsMenu: [
+                    {
+                        index: 1,
+                        name: 'ALL',
+                    },
+                    {
+                        index: 2,
+                        name: 'PRODUCT',
+                    },
+                    {
+                        index: 3,
+                        name: 'ACTIVITY',
+                    },
+                    {
+                        index: 4,
+                        name: 'STORE',
+                    }
                 ],
-                newsMenu:[
+                newstype:[
                     {
-                        index:1,
-                        name:'ALL',
+                        class: 'newstype all-menu',
+                        color: 'color: var(--orange-color);',
+                        type: 'ALL',
+                        nums: 6,
+                        value: 'all',
                     },
                     {
-                        index:2,
-                        name:'PRODUCT',
+                        class: 'newstype product-menu',
+                        type: 'PRODUCT',
+                        nums: 2,
+                        value: 'product',
                     },
                     {
-                        index:3,
-                        name:'ACTIVITY',
+                        class: 'newstype activity-menu',
+                        type:'ACTIVITY',
+                        nums: 2,
+                        value: 'activity',
                     },
                     {
-                        index:4,
-                        name:'STORE',
+                        class: 'newstype store-menu',
+                        type:'STORE',
+                        nums: 2,
+                        value: 'store',
                     },
                 ],
                 ALL:[
@@ -388,6 +383,32 @@
                         imgAlt: 'open',
                     },
                 ],
+                navList:[
+                        {
+                            text: "ABOUT",
+                            link: "#",
+                            class: "headerbtn",
+                            content: "ABOUT"
+                        },
+                        {
+                            text: "NEWS",
+                            link: "news.html",
+                            class: "headerbtn",
+                            content: "NEWS"
+                        },
+                        {
+                            text: "SHOP",
+                            link: "index.html",
+                            class: "headerbtn",
+                            content:"SHOP" 
+                        },
+                        {
+                            text: "CONTACT",
+                            link: "#",
+                            class: "headerbtn",
+                            content:"CONTACT" 
+                        },
+                ],
                 footerInfo:[
                         {
                             href: "https://maps.app.goo.gl/apyan9qoHcT4gzZeA",
@@ -415,20 +436,14 @@
                 change: 1,
             }
         },
-        created(){
-            this.filter(1)
-        },
-        methods:{
+        methods: {
             filter(filterIndex){
                 this.change = filterIndex
-            },
-            filterPhoneShop(e){
-                this.filter(e.target.value);
             },
             parseLength(name){
                 return this[name].length
             }
-        }
+        },
     }).mount('#app');
 </script>
 </body>

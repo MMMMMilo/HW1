@@ -116,9 +116,9 @@ header nav ul li:nth-child(2) a{
 .newscontent{
     margin: 5.7vw auto 0 auto;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     border-top: var(--borderpc-border);
-    width: 74%;
+    width: 90%;
 }
 
 @media screen and (max-width:1024px){
@@ -228,7 +228,7 @@ select{
     border-bottom: var(--borderpad-border);
 }
 
-select[data-chose='all']~.all-info{
+/* select[data-chose='all']~.all-info{
     display: block;
 }
 select[data-chose='product']~.product-info{
@@ -239,13 +239,12 @@ select[data-chose='activity']~.activity-info{
 }
 select[data-chose='store']~.store-info{
     display: block;
-}
+} */
 
 /* ============================================= */
 
 
 .newsproduct{
-    /* padding-top: 3.4vw; */
     padding-bottom: 9.5vw;
     padding-left: 3.4vw;
     border-left: var(--borderpc-border);
@@ -258,11 +257,11 @@ select[data-chose='store']~.store-info{
     }
 }
 
-@media screen and (max-width:768px){
+/* @media screen and (max-width:768px){
     .newsproduct{
         display: none;
     }
-}
+} */
 
 
 .newscontent .item{
@@ -293,7 +292,7 @@ select[data-chose='store']~.store-info{
         width: 100%;
         align-items: flex-start;
         justify-content: flex-start;
-        display: none;
+        /* display: none; */
     }
 }
 

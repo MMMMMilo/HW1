@@ -53,34 +53,34 @@
                 </div>
                 <div class="shopcontent">
                     <div class="shopmenu">
-                        <div v-for="menu in productMenu"
-                        class="shoptype" 
-                        @click ="filter(menu.index,menu.type)">
-                            <span :style="{color: change == menu.index ? '#fa0':'rgb(58, 58, 58)'}">{{menu.type}}</span>
-                            <span>({{parseLength()}})</span>
+                        <div class="shoptype" @click ="filter(1, '')">
+                            <span :style="{color: change == 1 ? '#fa0':'rgb(58, 58, 58)'}">ALL</span><span>({{productAll.length}})</span>
                         </div>
-                        <!-- <div class="shoptype" @click ="filter(2,'TOYS')">
-                            <span :style="{color: change == 2 ? '#fa0':'rgb(58, 58, 58)'}">TOYS</span><span>()</span>
+                        <div class="shoptype" @click ="filter(2, 'TOYS')">
+                            <span :style="{color: change == 2 ? '#fa0':'rgb(58, 58, 58)'}">TOYS</span><span>({{productToys.length}})</span>
                         </div> 
-                        <div class="shoptype" @click ="filter(3,'LIVING')">
-                            <span :style="{color: change == 3 ? '#fa0':'rgb(58, 58, 58)'}">LIVING</span><span>()</span>
+                        <div class="shoptype" @click ="filter(3, 'LIVING')">
+                            <span :style="{color: change == 3 ? '#fa0':'rgb(58, 58, 58)'}">LIVING</span><span>({{productLiving.length}})</span>
                         </div>
-                        <div class="shoptype" @click ="filter(4,'VINTAGE')">
-                            <span :style="{color: change == 4 ? '#fa0':'rgb(58, 58, 58)'}">VINTAGE</span><span>()</span>
+                        <div class="shoptype" @click ="filter(4, 'VINTAGE')">
+                            <span :style="{color: change == 4 ? '#fa0':'rgb(58, 58, 58)'}">VINTAGE</span><span>({{productVintage.length}})</span>
                         </div>
-                        <div class="shoptype" @click ="filter(5,'PHOTOS')">
-                            <span :style="{color: change == 5 ? '#fa0':'rgb(58, 58, 58)'}">PHOTOS</span><span>()</span>
-                        </div> -->
+                        <div class="shoptype" @click ="filter(5, 'PHOTOS')">
+                            <span :style="{color: change == 5 ? '#fa0':'rgb(58, 58, 58)'}">PHOTOS</span><span>({{productAdditional.length}})</span>
+                        </div>
                     </div>
+                    <!-- 手機板menu要怎麼同時綁定click事件到同一個商品上呢? -->
+                    <!-- 照著上面寫就可以了 -->
                     <div class="phoneshop">
-                        <select @change="filterPhoneShop">
-                            <option value="ALL">ALL&nbsp;()</option>
-                            <option value="TOYS">TOYS&nbsp;()</option>
-                            <option value="LIVING">LIVING&nbsp;()</option>
-                            <option value="VINTAGE">VINTAGE&nbsp;()</option>
-                            <option value="PHOTOS">PHOTOS&nbsp;()</option>
+                        <select >
+                            <option @click ="changeM = 1">ALL&nbsp;(14)</option>
+                            <option @click ="changeM = 2">TOYS&nbsp;(5)</option>
+                            <option @click ="changeM = 3">LIVING&nbsp;(4)</option>
+                            <option @click ="changeM = 4">VINTAGE&nbsp;(3)</option>
+                            <option @click ="changeM = 5">PHOTOS&nbsp;(2)</option>
                         </select>
                     </div>
+                    <!-- 手機板menu要怎麼同時綁定click事件到同一個商品上呢? -->
                     <div class="product">
                         <div class="itemgroup">
                             <a v-for="product in productDisplay"
@@ -101,7 +101,7 @@
                                     <img :src="product.image" :alt="product.alt">
                                 </div>
                             </a>
-                        </div>                    
+                        </div>
                         <div class="page" v-show="change == 1">
                             <a href="#">|&lt;</a>
                             <a href="#">1</a>
@@ -150,28 +150,6 @@
         Vue.createApp({
             data() {
                 return {
-                    productMenu:[
-                        {
-                            index:1,
-                            type:'ALL',
-                        },
-                        {
-                            index:2,
-                            type:'TOYS',
-                        },
-                        {
-                            index:3,
-                            type:'LIVING',
-                        },
-                        {
-                            index:4,
-                            type:'VINTAGE',
-                        },
-                        {
-                            index:5,
-                            type:'PHOTOS',
-                        },
-                    ],
                     navList:[
                         {
                             text: "ABOUT",
@@ -198,6 +176,7 @@
                             content:"CONTACT" 
                         },
                     ],
+                    
                     productAll:[
                         {
                             name: "掌上電子遊戲機",
@@ -338,6 +317,138 @@
                             type: "LIVING"
                         },
                     ],
+                    productToys:[
+                        {
+                            name: "",
+                            description: "80年代經典電子遊戲機，帶您重溫當年的遊戲樂趣與童年回憶。",
+                            price: "$ 980",
+                            classStamp:"stamp1",
+                            status: "NEW",
+                            image: "./image/product_gameboy.jpg",
+                            alt: "gameboy",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "太空探險樂高組合",
+                            description: "精彩的外星人樂高組合，將您帶入外太空探險的刺激世界，充滿樂趣和挑戰。",
+                            price: "$ 590",
+                            classStamp:"stamp2",
+                            status: "SOLD OUT",
+                            image: "./image/product_lego.jpg",
+                            alt: "lego",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "經典角色模型車",
+                            description: "經典角色化身賽車手融合了熱情與速度，為您帶來激動人心的賽車樂趣。收藏或比賽，都能激發無限童心。",
+                            price: "$ 670",
+                            image: "./image/product_modelcar.jpg",
+                            alt: "modelcar",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "奇脆圈玩具TAZO",
+                            description: "獨特設計，藏匿奇幻力量。收集、交換、探索其中的秘密，為你的TAZO收藏品帶來新的奇妙體驗。",
+                            price: "$ 160",
+                            image: "./image/product_tazo.jpg",
+                            alt: "tazo",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "空手道小子吊卡",
+                            description: "捕捉了空手道小子的英勇形象，展現著其技藝與精神。收藏或懸掛，都能體現熱血少年的勇氣與冒險精神。",
+                            price: "$ 610",
+                            classStamp:"stamp1",
+                            status: "HOT",
+                            image: "./image/product_kid.jpg",
+                            alt: "kid",
+                            link: "shoppage.html",
+                        },
+                    ],
+                    productLiving:[
+                        {
+                            name: "電影海報收藏品",
+                            description: "這些復古風格的電影海報彷彿是時光隧道，帶您重溫經典電影的美妙。",
+                            price: "$ 540",
+                            image: "./image/product_poster.jpg",
+                            alt: "poster",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "雲端飛行船裝飾",
+                            description: "這些精緻裝飾充滿夢幻氛圍，帶您飛向冒險之旅。為生活增添一絲奇幻氛圍與探險精神。",
+                            price: "$ 720",
+                            image: "./image/product_space.jpg",
+                            alt: "space",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "MF DOOM黑膠唱片",
+                            description: "收錄了MF DOOM深邃的音樂世界，展現其獨特風格與才華。品味音樂巨匠的藝術，享受深沉旋律的震撼。",
+                            price: "$ 830",
+                            classStamp:"stamp2",
+                            status: "SOLD OUT",
+                            image: "./image/product_mfdoom.jpg",
+                            alt: "mfdoom",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "愛因斯坦零錢筒",
+                            description: "智慧與儲蓄的象徵。不僅能儲蓄，更是一件啓發人心的藝術品，為您的存錢計畫增添趣味。",
+                            price: "$ 540",
+                            image: "./image/product_einstein.jpg",
+                            alt: "einstein",
+                            link: "shoppage.html",
+                        },
+                    ],
+                    productVintage:[
+                        {
+                            name: "任天堂卡帶",
+                            description: "創新的遊戲媒介。成就了遊戲史上的經典，承載了無數令人難忘的冒險與故事。",
+                            price: "$ 780",
+                            classStamp:"stamp1",
+                            status: "NEW",
+                            image: "./image/product_gamedisk.jpg",
+                            alt: "gamedisk",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "音樂時光卡式錄音帶",
+                            description: "充滿復古魅力的卡式錄音帶，帶您回到音樂在磁帶上流傳的年代，重溫那些珍貴的音樂時刻。",
+                            price: "$ 360",
+                            image: "./image/product_audiotape.jpg",
+                            alt: "audiotape",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "SEGA遊戲卡帶",
+                            description: "充滿懷舊風情的遊戲傳奇。蘊含了SEGA遊戲史上的經典，帶來無盡的遊戲樂趣與挑戰。經典遊戲，永不褪色。",
+                            price: "$ 540",
+                            image: "./image/product_sega.jpg",
+                            alt: "sega",
+                            link: "shoppage.html",
+                        },
+                    ],
+                    productAdditional:[
+                        {
+                            name: "View-Master 幻燈片機",
+                            description: "即刻探索多樣景觀，沉浸於生動故事。這經典裝置將美景帶入手中，成為您探險的視覺窗。",
+                            price: "$ 600",
+                            image: "./image/product_viewmaster.jpg",
+                            alt: "viewmaster",
+                            link: "shoppage.html",
+                        },
+                        {
+                            name: "舊式攝影底片",
+                            description: "復古的底片帶您進入攝影的神秘世界，探索以前的攝影技術和獨特的影像魅力。",
+                            price: "$ 230",
+                            classStamp:"stamp1",
+                            status: "HOT",
+                            image: "./image/product_film.jpg",
+                            alt: "film",
+                            link: "shoppage.html",
+                        },
+                    ],
                     footerInfo:[
                         {
                             href: "https://maps.app.goo.gl/apyan9qoHcT4gzZeA",
@@ -363,34 +474,31 @@
                         }
                     ],
                     change: 1,
-                    productDisplay:[]
+                    //changeM:1,
+                    productDisplay: []
                 }
             },
-            created(){
-                this.filter(1,'ALL')
+            created() {
+                // 初始畫面設定
+                // 想法一
+                // this.productDisplay = this.productAll
+                // 想法二
+                this.filter(1, '')
             },
-            methods:{
-                filter(filterIndex,filterType){
+            methods: {
+                filter(filterIndex, filterType){
                     this.change = filterIndex
-                    if(filterType == 'ALL'){
-                        //全部商品
+                    if(filterType == ''){
+                        // 全部商品
                         this.productDisplay = this.productAll
                     }else{
-                        //篩選商品:透過陣列filter方法篩選物件中type相同的商品
+                        // 篩選商品:透過陣列filter方法來篩選物件中type相同的商品
                         this.productDisplay = this.productAll.filter(item=>{
-                            //console.log(this.productDisplay.length);
                             return item.type === filterType
                         })
                     }
-                },
-                filterPhoneShop(e){
-                    this.filter(0,e.target.value);
-                    
-                },
-                parseLength(){
-                    return this.productDisplay.length;
                 }
-            }
+            },
         }).mount('#app')
     </script>
 </body>
